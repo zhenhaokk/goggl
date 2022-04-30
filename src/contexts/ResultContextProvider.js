@@ -7,7 +7,7 @@ const baseUrl =
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("Elon Musk");
 
 
   // /video, /search, /images
@@ -16,13 +16,18 @@ export const ResultContextProvider = ({ children }) => {
     const response = await fetch(`${baseUrl}${type}`, {
       method: "GET",
       headers: {
-        "x-user-agent": "desktop",
         "x-rapidAPI-host": "google-search3.p.rapidapi.com",
         "x-rapidAPI-key": "b7094e4754msh21b14e141a8a2e8p1e896fjsn57cb139c33cb",
       },
     });
     const data = await response.json();
-    setResults(data);
+    console.log(data);
+
+    if (type.includes('/news')) {
+      setResults(data.entries);
+    } else { 
+      setResults(data);
+    }
     setIsLoading(false);
   };
   return (
