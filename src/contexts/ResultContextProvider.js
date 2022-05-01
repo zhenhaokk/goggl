@@ -7,7 +7,7 @@ const baseUrl =
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("Elon Musk");
+  const [searchTerm, setSearchTerm] = useState("Iron");
 
 
   // /video, /search, /images
@@ -17,7 +17,7 @@ export const ResultContextProvider = ({ children }) => {
       method: "GET",
       headers: {
         "x-rapidAPI-host": "google-search3.p.rapidapi.com",
-        "x-rapidAPI-key": "b7094e4754msh21b14e141a8a2e8p1e896fjsn57cb139c33cb",
+        "x-rapidAPI-key": process.env.REACT_APP_API_KEY,
       },
     });
     const data = await response.json();
@@ -28,6 +28,7 @@ export const ResultContextProvider = ({ children }) => {
     } else { 
       setResults(data);
     }
+    
     setIsLoading(false);
   };
   return (
